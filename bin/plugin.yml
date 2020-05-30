@@ -1,0 +1,18 @@
+name: Utils
+author: GiverPlay007
+version: 1.0.16
+load: POSTWORLD
+description: Alguem olha isso? Esse plugin foi feito de qualquer jeito, zero optimizing, nao eh um projeto serio.
+api-version: 1.15
+main: me.giverplay.agaragun.Main
+commands:
+  tpa:
+  tpaceitar:
+  tpanegar:
+  rps:
+  lixo:
+    aliases: ['lixeira', 'maicondg_', 'bocao', 'giverplay007']
+  local:
+    aliases: ['l']
+  bypass:
+    aliases: ['cmdbypass']
