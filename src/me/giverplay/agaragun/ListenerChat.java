@@ -5,9 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Chat implements CommandExecutor
+public class ListenerChat implements CommandExecutor
 {
-	public Chat(Main main)
+	public ListenerChat(Main main)
 	{
 		main.getCommand("local").setExecutor(this);
 	}
@@ -33,12 +33,12 @@ public class Chat implements CommandExecutor
 		
 		for(Player rec : player.getWorld().getPlayers()){
 			if(rec.getLocation().distanceSquared(player.getLocation()) < 100.00D){
-				rec.sendMessage("§e[Local] §7" + player.getName() + " §a>> " + msg);
+				rec.sendMessage("Â§e[Local] Â§7" + player.getName() + " Â§a>> " + msg);
 				if(rec != player) p++;
 			}
 		}
 		
-		if(p == 0) player.sendMessage("§eNinguem proximo para ouvir");
+		if(p == 0) player.sendMessage("Â§eNinguem proximo para ouvir");
 		
 		return false;
 	}

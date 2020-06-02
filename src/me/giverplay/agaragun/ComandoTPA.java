@@ -17,13 +17,13 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
-public class TPA implements CommandExecutor
+public class ComandoTPA implements CommandExecutor
 {
 	public static HashMap<Player, Player> tparequest = new HashMap<>();
 	private static ArrayList<Player> delay = new ArrayList<>();
 	private Main main;
 	
-	public TPA(Main plugin){
+	public ComandoTPA(Main plugin){
 		this.main = plugin;
 		
 		main.getCommand("tpa").setExecutor(this);
@@ -38,20 +38,20 @@ public class TPA implements CommandExecutor
 			
 			
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cO console não pode se teleportar ate um jogador!");
+				sender.sendMessage("Â§cO console nÃ£o pode se teleportar ate um jogador!");
 				return true;
 			} else {
 				
 				if(!main.hasPerm((Player) sender)){
-					sender.sendMessage("§cComando bloqueado");
+					sender.sendMessage("Â§cComando bloqueado");
 					return true;
 				}
 				
 				if (args.length == 0) {
-					sender.sendMessage("§cUso correto: /tpa [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpa [Jogador]");
 					return true;
 				} else if (args.length > 1) {
-					sender.sendMessage("§cUso correto: /tpa [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpa [Jogador]");
 					return true;
 				} else {
 					Player target = Bukkit.getPlayer(args[0]);
@@ -59,28 +59,28 @@ public class TPA implements CommandExecutor
 						return true;
 					} else {
 						if (delay.contains((Player) sender)) {
-							sender.sendMessage("§cAguarde 20 segundos para usar este comando.");
+							sender.sendMessage("Â§cAguarde 20 segundos para usar este comando.");
 							return true;
 						}
 						
-						sender.sendMessage("§eVocê enviou um pedido de teleporte a §6" + target.getName());
+						sender.sendMessage("Â§eVocÃª enviou um pedido de teleporte a Â§6" + target.getName());
 						target.sendMessage(" ");
-						target.sendMessage(" §e" + sender.getName() + " §7deseja ir até você.");
+						target.sendMessage(" Â§e" + sender.getName() + " Â§7deseja ir atÃ© vocÃª.");
 						
-						TextComponent tpamsg = new TextComponent("§7Clique");
-						BaseComponent[] hoveraceitar = new ComponentBuilder("§aAceitar pedido de teleporte de " + sender.getName()).create();
-						BaseComponent[] hovernegar = new ComponentBuilder("§cNegar pedido de teleporte de " + sender.getName()).create();
+						TextComponent tpamsg = new TextComponent("Â§7Clique");
+						BaseComponent[] hoveraceitar = new ComponentBuilder("Â§aAceitar pedido de teleporte de " + sender.getName()).create();
+						BaseComponent[] hovernegar = new ComponentBuilder("Â§cNegar pedido de teleporte de " + sender.getName()).create();
 						
-						TextComponent aquiaceitar = new TextComponent(" §a§l§nAQUI§7 ");
+						TextComponent aquiaceitar = new TextComponent(" Â§aÂ§lÂ§nAQUIÂ§7 ");
 						aquiaceitar.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoveraceitar));
 						aquiaceitar.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaceitar " + sender.getName()));
 						
-						TextComponent aquinegar = new TextComponent(" §c§l§nAQUI§7 ");
+						TextComponent aquinegar = new TextComponent(" Â§cÂ§lÂ§nAQUIÂ§7 ");
 						aquinegar.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hovernegar));
 						aquinegar.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpanegar " + sender.getName()));
 						
-						TextComponent ou = new TextComponent("§7para aceitar ou");
-						TextComponent ou2 = new TextComponent("§7para negar.");
+						TextComponent ou = new TextComponent("Â§7para aceitar ou");
+						TextComponent ou2 = new TextComponent("Â§7para negar.");
 						
 						tpamsg.addExtra(aquiaceitar);
 						tpamsg.addExtra(ou);
@@ -99,8 +99,8 @@ public class TPA implements CommandExecutor
 							public void run() {
 								if (tparequest.get((Player) sender) == target) {
 									tparequest.remove((Player) sender);
-									sender.sendMessage("§cO seu pedido de teleporte para " + target.getName() + " expirou!");
-									target.sendMessage("§cO pedido de teleporte de " + sender.getName() + " expirou!");
+									sender.sendMessage("Â§cO seu pedido de teleporte para " + target.getName() + " expirou!");
+									target.sendMessage("Â§cO pedido de teleporte de " + sender.getName() + " expirou!");
 								}
 								delay.remove((Player) sender);
 							}
@@ -113,14 +113,14 @@ public class TPA implements CommandExecutor
 		
 		if (cmd.getName().equalsIgnoreCase("tpaceitar")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cO console não pode fazer isso!");
+				sender.sendMessage("Â§cO console nÃ£o pode fazer isso!");
 				return true;
 			} else {
 				if (args.length == 0) {
-					sender.sendMessage("§cUso correto: /tpaceitar [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpaceitar [Jogador]");
 					return true;
 				} else if (args.length > 1) {
-					sender.sendMessage("§cUso correto: /tpaceitar [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpaceitar [Jogador]");
 					return true;
 				} else if (args.length == 1) {
 					Player requester = Bukkit.getPlayer(args[0]);
@@ -130,10 +130,10 @@ public class TPA implements CommandExecutor
 						if (tparequest.get(requester) == sender) {
 							tparequest.remove(requester);
 							requester.teleport((Player) sender);
-							requester.sendMessage("§eSeu pedido de teleporte foi aceito");
-							sender.sendMessage("§eO pedido de teleporte foi aceito");
+							requester.sendMessage("Â§eSeu pedido de teleporte foi aceito");
+							sender.sendMessage("Â§eO pedido de teleporte foi aceito");
 						} else {
-							sender.sendMessage("§cNenhum pedido de teleporte para aceitar!");
+							sender.sendMessage("Â§cNenhum pedido de teleporte para aceitar!");
 							return true;
 						}
 					}
@@ -143,14 +143,14 @@ public class TPA implements CommandExecutor
 		
 		if (cmd.getName().equalsIgnoreCase("tpanegar")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("§cO console não pode fazer isso!");
+				sender.sendMessage("Â§cO console nÃ£o pode fazer isso!");
 				return true;
 			} else {
 				if (args.length == 0) {
-					sender.sendMessage("§cUso correto: /tpanegar [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpanegar [Jogador]");
 					return true;
 				} else if (args.length > 1) {
-					sender.sendMessage("§cUso correto: /tpanegar [Jogador]");
+					sender.sendMessage("Â§cUso correto: /tpanegar [Jogador]");
 					return true;
 				} else if (args.length == 1) {
 					Player requester = Bukkit.getPlayer(args[0]);
@@ -159,10 +159,10 @@ public class TPA implements CommandExecutor
 					} else {
 						if (tparequest.get(requester) == sender) {
 							tparequest.remove(requester);
-							requester.sendMessage("§eSeu pedido de teleporte foi negado");
-							sender.sendMessage("§eO pedido de teleporte foi negado");
+							requester.sendMessage("Â§eSeu pedido de teleporte foi negado");
+							sender.sendMessage("Â§eO pedido de teleporte foi negado");
 						} else {
-							sender.sendMessage("§cNenhum pedido de teleporte para negar!");
+							sender.sendMessage("Â§cNenhum pedido de teleporte para negar!");
 							return true;
 						}
 					}
@@ -174,11 +174,11 @@ public class TPA implements CommandExecutor
 	
 	public boolean checkPlayers(CommandSender sender, Player target) {
 		if (target == null) {
-			sender.sendMessage("§cJogador não encontrado! ");
+			sender.sendMessage("Â§cJogador nÃ£o encontrado! ");
 			return true;
 		}
 		if (sender.getName().equalsIgnoreCase(target.getName())) {
-			sender.sendMessage("§cNão pode ser você mesmo!");
+			sender.sendMessage("Â§cNÃ£o pode ser vocÃª mesmo!");
 			return true;
 		}
 		return false;

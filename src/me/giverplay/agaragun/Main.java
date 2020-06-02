@@ -1,60 +1,47 @@
 package me.giverplay.agaragun;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends JavaPlugin implements CommandExecutor, Listener
 {
-	protected Inventory lixo = Bukkit.createInventory(null, 54, "§4§lLixeira");
-	protected Inventory regions = Bukkit.createInventory(null, 54, "§4RPs");
+	protected Inventory lixo = Bukkit.createInventory(null, 54, "Â§4Â§lLixeira");
 	private List<String> cama = new ArrayList<>();
 	
 	@Override
 	public void onEnable(){
-		Bukkit.getConsoleSender().sendMessage("§a[GiverPlay] Iniciando plugin");
+		Bukkit.getConsoleSender().sendMessage("Â§a[GiverPlay] Iniciando plugin");
 		
-		new TPA(this);
-		new Prevents(this);
-		new Chat(this);
-		
-		getCommand("rps").setExecutor(new RPS(this));
-		getCommand("lixo").setExecutor(new Lixo(this));
+		new ComandoTPA(this);
+		new ListenerPrevents(this);
+		new ListenerChat(this);
+
+		getCommand("lixo").setExecutor(new ComandoLixo(this));
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
-		
-		setupRPS();
 		
 		new BukkitRunnable()
 		{
@@ -79,39 +66,13 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 		
 		for(World w : Bukkit.getWorlds()){
 			w.setDifficulty(Difficulty.HARD);
-			Bukkit.broadcastMessage("§aDificuldade de mundo §f" + w.getName() + " §adefinida para §fDifficulty.HARD");
+			Bukkit.broadcastMessage("Â§aDificuldade de mundo Â§f" + w.getName() + " Â§adefinida para Â§fDifficulty.HARD");
 		}
-	}
-	
-	protected void setupRPS()
-	{
-		if(!getConfig().isSet("rps")){
-			getConfig().set("rps.0.name", "Exemplo");
-			getConfig().set("rps.0.icon", "STONE");
-			getConfig().set("rps.0.cmd", "rp tp exemplo world");
-			saveConfig();
-		}
-		
-		for(String s : getConfig().getConfigurationSection("rps").getKeys(false)){
-			ItemStack item = new ItemStack(Material.matchMaterial(getConfig().getString("rps." + s + ".icon")));
-			
-			ItemMeta meta = item.getItemMeta();
-			item.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
-			
-			meta.setDisplayName("§a" + getConfig().getString("rps." + s + ".name"));
-			meta.setLore(Arrays.asList(" ", "§cClique para teleportar", " "));
-			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-			
-			item.setItemMeta(meta);
-			
-			regions.setItem(Integer.valueOf(s), item);
-		}
-		
 	}
 	
 	@Override
 	public void onDisable(){
-		Bukkit.getConsoleSender().sendMessage("§a[GiverPlay] Desativando plugin");
+		Bukkit.getConsoleSender().sendMessage("Â§a[GiverPlay] Desativando plugin");
 	}
 	
 	@EventHandler
@@ -121,7 +82,7 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 		
 		if(cama.contains(player.getName()))
 		{
-			player.sendMessage("§cVocê não pode mudar o tempo agora... Aguarde mais alguns segundos");
+			player.sendMessage("Â§cVocÃª nÃ£o pode mudar o tempo agora... Aguarde mais alguns segundos");
 			return;
 		}
 		
@@ -142,24 +103,8 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 			}
 		}.runTaskLaterAsynchronously(this, 20 * 60);
 		
-		Bukkit.broadcastMessage("§a" + player.getName() + " §adormiu, agora é dia no mundo §f" 
+		Bukkit.broadcastMessage("Â§a" + player.getName() + " Â§adormiu, agora Ã© dia no mundo Â§f"
 				+ e.getPlayer().getWorld().getName());
-	}
-	
-	@EventHandler
-	public void onClick(InventoryClickEvent event){
-		Player player = (Player) event.getWhoClicked();
-		
-		if(player.getOpenInventory().getTitle() == "§4RPs"){
-			event.setCancelled(true);
-			if(getConfig().isSet("rps." + String.valueOf(event.getSlot()))){
-				String cmd = getConfig().getString("rps." + event.getSlot() + ".cmd");
-				
-				if(cmd != null){
-					Bukkit.dispatchCommand(player, cmd);
-				}
-			}
-		}
 	}
 	
 	@EventHandler
@@ -168,7 +113,7 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 		Player player = event.getPlayer();
 		
 		if(player.getInventory().getItemInMainHand().getType() == Material.FEATHER
-				&& player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("§4Limpar")){
+				&& player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Â§4Limpar")){
 			
 			Block block = event.getClickedBlock();
 			
@@ -183,7 +128,7 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 						dc.getInventory().setItem(i, new ItemStack(Material.AIR));
 					}
 					
-					player.sendMessage("§cEste baú foi limpo!");
+					player.sendMessage("Â§cEste baÃº foi limpo!");
 					
 					return;
 				}
@@ -192,7 +137,7 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 					chest.getInventory().setItem(i, new ItemStack(Material.AIR));
 				}
 				
-				player.sendMessage("§cEste baú foi limpo!");
+				player.sendMessage("Â§cEste baÃº foi limpo!");
 			}
 		}
 	}

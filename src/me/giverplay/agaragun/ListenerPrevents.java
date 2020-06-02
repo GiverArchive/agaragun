@@ -14,14 +14,14 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class Prevents implements Listener, CommandExecutor
+public class ListenerPrevents implements Listener, CommandExecutor
 {
 	private Main plugin;
 	
 	private static ArrayList<String> cmds = new ArrayList<>();
 	private static ArrayList<String> bypassses = new ArrayList<>();
 	
-	public Prevents(Main plugin)
+	public ListenerPrevents(Main plugin)
 	{
 		plugin.getCommand("bypass").setExecutor(this);
 		
@@ -77,7 +77,7 @@ public class Prevents implements Listener, CommandExecutor
 				CommandSender sender = event.getSender();
 				
 				if(!plugin.hasPerm(sender) && !bypassses.contains(sender.getName())){
-					sender.sendMessage("§cPor ordem, este comando está bloqueado, você não pode fazer uso dele, bobinho");
+					sender.sendMessage("Â§cPor ordem, este comando estÃ¡ bloqueado, vocÃª nÃ£o pode fazer uso dele, bobinho");
 					event.setCancelled(true);
 					
 					return;
@@ -93,7 +93,7 @@ public class Prevents implements Listener, CommandExecutor
 				Player sender = event.getPlayer();
 				
 				if(!plugin.hasPerm(sender) && !bypassses.contains(sender.getName())){
-					sender.sendMessage("§cPor ordem, este comando está bloqueado, você não pode fazer uso dele, bobinho");
+					sender.sendMessage("Â§cPor ordem, este comando estÃ¡ bloqueado, vocÃª nÃ£o pode fazer uso dele, bobinho");
 					event.setCancelled(true);
 					
 					return;
@@ -106,7 +106,7 @@ public class Prevents implements Listener, CommandExecutor
 	public boolean onCommand(CommandSender sender, Command cmd, String lb, String[] args)
 	{
 		if(!plugin.hasPerm(sender)){
-			sender.sendMessage("§cSem permissão");
+			sender.sendMessage("Â§cSem permissÃ£o");
 			return true;
 		}
 		
@@ -118,18 +118,18 @@ public class Prevents implements Listener, CommandExecutor
 		Player player;
 		
 		if((player = Bukkit.getPlayer(args[0])) == null){
-			sender.sendMessage("§cJogador não encontrado");
+			sender.sendMessage("Â§cJogador nÃ£o encontrado");
 			return true;
 		}
 		
 		if(bypassses.contains(player.getName())){
 			bypassses.remove(player.getName());
-			sender.sendMessage("§cJogador " + player.getName() + " removido do bypass");
+			sender.sendMessage("Â§cJogador " + player.getName() + " removido do bypass");
 			return true;
 		}
 		
 		bypassses.add(player.getName());
-		sender.sendMessage("§aJogador " + player.getName() + " adicionado ao bypass");
+		sender.sendMessage("Â§aJogador " + player.getName() + " adicionado ao bypass");
 		
 		new BukkitRunnable()
 		{
@@ -137,7 +137,7 @@ public class Prevents implements Listener, CommandExecutor
 			public void run()
 			{
 				bypassses.remove(player.getName());
-				sender.sendMessage("§cJogador " + player.getName() + " removido do bypass");
+				sender.sendMessage("Â§cJogador " + player.getName() + " removido do bypass");
 			}
 		}.runTaskLater(plugin, 20 * 300);
 		

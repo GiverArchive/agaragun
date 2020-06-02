@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Lixo implements CommandExecutor
+public class ComandoLixo implements CommandExecutor
 {
 	Main plugin;
-	public Lixo(Main plugin)
+	public ComandoLixo(Main plugin)
 	{
 		this.plugin = plugin;
 	}
@@ -22,7 +22,7 @@ public class Lixo implements CommandExecutor
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args)
 	{
 		if(!(sender instanceof Player)){
-			sender.sendMessage("§cConsole tolo");
+			sender.sendMessage("Â§cConsole tolo");
 			return true;
 		}
 		
@@ -34,8 +34,8 @@ public class Lixo implements CommandExecutor
 			if(args[0].toLowerCase().contains("pena") && player.hasPermission("lixo.admin")){
 				ItemStack item = new ItemStack(Material.FEATHER);
 				ItemMeta meta = item.getItemMeta();
-				meta.setDisplayName("§4Limpar");
-				meta.setLore(Arrays.asList(" ", " §4§lCuidado!", "§cIsso vai limpar o baú", "§cao clicar com o direito", " "));;
+				meta.setDisplayName("Â§4Limpar");
+				meta.setLore(Arrays.asList(" ", " Â§4Â§lCuidado!", "Â§cIsso vai limpar o baÃº", "Â§cao clicar com o direito", " "));;
 				item.setItemMeta(meta);
 				
 				player.getInventory().addItem(item);
