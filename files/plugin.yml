@@ -9,7 +9,6 @@ commands:
   tpa:
   tpaceitar:
   tpanegar:
-  rps:
   lixo:
     aliases: ['lixeira', 'maicondg_', 'bocao', 'giverplay007']
   local:

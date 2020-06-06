@@ -1,6 +1,10 @@
 package me.giverplay.agaragun;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.Material;
+import org.bukkit.Location;
+import org.bukkit.Difficulty;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -10,18 +14,15 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,29 +181,5 @@ public class Main extends JavaPlugin implements CommandExecutor, Listener
 			}
 		}.runTaskTimer(this, 10, 10);
 		
-	}
-	
-	@EventHandler
-	public void onLaunch(PlayerInteractEvent e){
-		Player player = e.getPlayer();
-		
-		if(!hasPerm(player)) return;
-		
-		if(e.getAction().equals(Action.LEFT_CLICK_AIR) && 
-				player.getInventory().getItemInMainHand().getType().equals(Material.STICK)){
-			
-			Location loc = player.getLocation().clone();
-			loc.setY(loc.getY() + 1.5D);
-			
-			Arrow arrow = player.getWorld().spawnArrow(loc, new Vector(0, 0, 0), 1, 1);
-			arrow.setVelocity(player.getVelocity().multiply(10D));
-			
-			arrow.setShooter(player);
-		}
-	}
-	
-	@EventHandler
-	public void rain(WeatherChangeEvent e){
-		e.setCancelled(true);
 	}
 }
