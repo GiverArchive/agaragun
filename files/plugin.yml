@@ -1,6 +1,6 @@
 name: Utils
 author: GiverPlay007
-version: 1.1.0
+version: 1.1.1
 load: POSTWORLD
 description: Plugin feito da forma mais simples possivel...
 api-version: 1.15
@@ -10,8 +10,10 @@ commands:
   tpaceitar:
   tpanegar:
   lixo:
-    aliases: ['lixeira', 'maicondg_', 'bocao', 'giverplay007']
+    aliases: ['lixeira']
   local:
     aliases: ['l']
   bypass:
     aliases: ['cmdbypass']
+  reiniciar:
+    aliases: ['restart']

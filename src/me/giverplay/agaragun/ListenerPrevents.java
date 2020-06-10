@@ -69,26 +69,13 @@ public class ListenerPrevents implements Listener, CommandExecutor
 		cmds.add("easy");
 		cmds.add("hard");
 		cmds.add("hardcore");
-		cmds.add("night");
-		cmds.add("day");
-		cmds.add("sun");
 		cmds.add("exp");
-		cmds.add("storm");
 		cmds.add("experience");
 		cmds.add("xp");
-		cmds.add("time");
-		cmds.add("thor");
 		cmds.add("lightning");
-		cmds.add("workbench");
-		cmds.add("wb");
-		cmds.add("clear");
 		cmds.add("invsee");
 		cmds.add("weather");
-		cmds.add("tm");
-		cmds.add("effect");
 		cmds.add("sudo");
-		cmds.add("potion");
-		cmds.add("gamerule");
 		cmds.add("pex");
 		
 		this.plugin = plugin;
@@ -103,8 +90,7 @@ public class ListenerPrevents implements Listener, CommandExecutor
 				CommandSender sender = event.getSender();
 				
 				if(!plugin.hasPerm(sender) && !bypassses.contains(sender.getName())){
-					sender.sendMessage("§cPor ordem, este comando está bloqueado, você não pode fazer uso dele, bobinho");
-					sender.sendMessage("§cAh, e não esqueça: Você não pode usar comandos com dois pontos, bebê :)");
+					sender.sendMessage("§cComando bloqueado");
 					event.setCancelled(true);
 					
 					return;
@@ -120,7 +106,7 @@ public class ListenerPrevents implements Listener, CommandExecutor
 				Player sender = event.getPlayer();
 				
 				if(!plugin.hasPerm(sender) && !bypassses.contains(sender.getName())){
-					sender.sendMessage("§cPor ordem, este comando está bloqueado, você não pode fazer uso dele, bobinho");
+					sender.sendMessage("§cComando bloqueado");
 					event.setCancelled(true);
 					
 					return;

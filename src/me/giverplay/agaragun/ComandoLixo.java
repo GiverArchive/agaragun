@@ -16,6 +16,7 @@ public class ComandoLixo implements CommandExecutor
 	public ComandoLixo(Main plugin)
 	{
 		this.plugin = plugin;
+		plugin.getCommand("lixo").setExecutor(this);
 	}
 	
 	@Override
