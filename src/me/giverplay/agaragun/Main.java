@@ -6,13 +6,12 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class Main extends JavaPlugin implements CommandExecutor, Listener
+public class Main extends JavaPlugin implements CommandExecutor
 {
 	protected Inventory lixo = Bukkit.createInventory(null, 54, "§4§lLixeira");
 	

@@ -172,7 +172,7 @@ public class ComandoReiniciar implements CommandExecutor, Listener {
 
     Bukkit.broadcastMessage(" ");
     for (Player p : Bukkit.getOnlinePlayers()) {
-      p.playSound(p.getLocation(), Sound.MUSIC_DISC_WAIT, 10, 3);
+      p.playSound(p.getLocation(), Sound.MUSIC_DISC_CHIRP, 10, 1);
     }
     task = new BukkitRunnable() {
       @Override
@@ -204,13 +204,13 @@ public class ComandoReiniciar implements CommandExecutor, Listener {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
               Utils.sendTitle(p, "Reiniciando em " + percent + " segundos", " ", 2, 3, 2);
-              p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, -0);
+              p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10, 0);
             }
             bloqueartudo = true;
           }
 
           for (Player p : Bukkit.getOnlinePlayers()) {
-            Utils.sendAction(p, "§aReiniciando em: §f" + Utils.createTimerLabel((int) ((System.currentTimeMillis() - newtime) / 1000)));
+            Utils.sendAction(p, "§aReiniciando em: §f" + Utils.createTimerLabel((int) ((newtime - System.currentTimeMillis()) / 1000)));
           }
         }
       }
