@@ -1,2 +1,2 @@
-# survival
-Servidor Survivaaaaaal
+# Survival
+Plugin auxiliar de um servidor de survival de amigos.
